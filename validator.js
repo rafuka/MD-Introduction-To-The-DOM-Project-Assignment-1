@@ -1,1 +1,7 @@
-var validator = {};
+(function(window){
+
+  var validator = {};
+
+})(window);
+
+
