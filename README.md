@@ -1,2 +1,2 @@
-# Introduction to the DOM Project Assignment 1
+# Project Assignment 1: Create JavaScript Validation Functions
 
