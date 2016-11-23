@@ -157,6 +157,49 @@
     return contains;
   };
 
+  validator.lacks = function(input, words) {
+    if (!input) throw "error in function lacks: 'input' parameter missing";
+    if (!words) throw "error in function lacks: 'words' parameter missing";
+
+    input = (""+input).toLowerCase();
+    
+    function isDelimiter(char) {
+      if (char === " " || char === undefined) return true;
+      
+      if ((char < "a" || char > "z") && 
+          (char < "A" || char > "Z") && 
+          isNaN(+char)) {
+        return true;
+      }
+
+      return false;
+    }
+ 
+    var lacks;
+    
+    for (var i = 0; i < words.length; i++) {   
+      words[i] = words[i].toLowerCase();
+      lacks = true;
+
+      for (var j = 0; j < input.length; j++) {  
+        if (isDelimiter(input[j-1]) && isDelimiter(input[j+words[i].length])) {
+          var k;
+          for (k = 0; k < words[i].length; k++) {
+            if (words[i][k] !== input[j + k]) break;
+          }
+          
+          if (k === words[i].length) {
+            lacks = false;
+          }
+        }    
+      }
+      
+      if (!lacks) break;
+    }
+    
+    return lacks;
+  };
+  
 })(window);
 
 
