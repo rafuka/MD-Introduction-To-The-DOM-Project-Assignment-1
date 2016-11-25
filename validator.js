@@ -200,6 +200,73 @@
     return lacks;
   };
   
+  validator.isComposedOf = function(input, strings) {
+    if (!input) throw "error in function isComposedOf: 'input' parameter missing";
+    if (!strings) throw "error in function isComposedOf: 'strings' parameter missing";
+    
+    // Set all input to lower case
+    var lowInp = (""+input).toLowerCase();
+    var lowStrs = [];
+    
+    for (var i = 0; i < strings.length; i++) lowStrs[i] = strings[i].toLowerCase();
+      
+    // Create array of objects containing each char of the input string
+    var charArr = lowInp.split("");
+    
+    // Helper function to detect non-alphanumeric characters.
+    function isSymbol(c) {
+      if ((c < "a" || c > "z") && 
+          (c < "A" || c > "Z") && 
+          (c < "0" || c > "9")) {
+        return true;
+      }
+      else return false;
+    }
+    
+    for (var i = 0; i < charArr.length; i++) {
+      // Mark white spaces or symbols as used.
+      if (isSymbol(charArr[i])) {
+        charArr[i] = {
+          char: charArr[i],
+          used: true
+        }
+      }
+      else {
+        charArr[i] = {
+          char: charArr[i],
+          used: false
+        }
+      }  
+    } 
+    
+    // Traverse the input string for each string in the strings array, marking each used char in charArr.
+    for (var i = 0; i < lowStrs.length; i++) {
+      
+      var str = lowStrs[i];     
+      for (var j = 0; j < charArr.length; j++) {
+        
+        if (j + (str.length - 1) <= charArr.length) {    
+          
+          // If first char of str matches a char on input, check rest of chars in str.       
+          if (charArr[j].char === str[0]) {  
+            
+            var k;
+            for (k = 0; k < str.length; k++) if (str[k] !== charArr[j + k].char) break;
+            
+            // Check if loop completed (all characters of str were found), then mark used chars.
+            if (k === str.length) for (var l = 0; l < k; l++) charArr[j + l].used = true;  
+          }
+        }
+        // Check if all chars have been used before proceding to next string
+        for (var m = 0; m < charArr.length; m++) if (charArr[m].used === false) break;
+        
+        // if the for loop ended, means all chars are used. Return true, else go to the next string.
+        if (m === charArr.length) return true;
+      }  
+    }
+    return false;   
+  };
+  
 })(window);
 
 
