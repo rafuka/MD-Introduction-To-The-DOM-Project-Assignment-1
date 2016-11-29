@@ -267,6 +267,67 @@
     return false;   
   };
   
+  validator.isLength = function(input, n) {
+    if (!input) throw "error in function isLength: 'input' parameter missing.";
+    if (!n) throw "error in function isLength: 'n' parameter missing.";
+    
+    var result = ""+input.length;
+    return result <= n;
+  };
+
+  validator.isOfLength = function(input, n) {
+    if (!input) throw "error in function isLength: 'input' parameter missing.";
+    if (!n) throw "error in function isLength: 'n' parameter missing.";
+    
+    var result = ""+input.length;
+    return result >= n;
+  };
+
+  validator.countWords = function(input) {
+    if (input !== "" && !input) throw "error in function countWords: 'input' parameter missing.";
+
+    if (input === "" || input === undefined || input === null || input === NaN) return 0;
+    
+    var len = +(""+input).length;
+    var strArr = (""+input).split("");
+    var count = 0;
+    
+    function isDelimiter(char) {
+      if (char === " " ||char === undefined) return true;
+      
+      if ((char < "a" || char > "z") && 
+          (char < "A" || char > "Z") && 
+          isNaN(+char)) {
+        return true;
+      }
+    }
+    
+    console.log(strArr);
+    for (var i = 0; i < len + 1; i++) {
+      if (isDelimiter(strArr[i - 1]) && !isDelimiter(strArr[i])) count++;
+    } 
+    
+    return count;
+  };
+
+  validator.lessWordsThan = function(input, n) {
+    if (!input) throw "error in function lessWordsThan: 'input' parameter missing.";
+    if (!n) throw "error in function lessWordsThan: 'n' parameter missing.";
+    
+    var wordCount = this.countWords(input);
+    
+    return wordCount <= n;
+  };
+
+  validator.moreWordsThan = function(input, n) {
+    if (!input) throw "error in function moreWordsThan: 'input' parameter missing.";
+    if (!n) throw "error in function moreWordsThan: 'n' parameter missing.";
+    
+    var wordCount = this.countWords(input);
+    
+    return wordCount >= n;
+  };
+  
 })(window);
 
 
