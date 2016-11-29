@@ -14,7 +14,7 @@
       return false; 
     }
   };
-
+  
   validator.isPhoneNumber = function(input) {
     if (!input) throw "error in function isPhoneNumber: 'input' parameter missing";
     
@@ -329,5 +329,3 @@
   };
   
 })(window);
-
-
