@@ -328,4 +328,12 @@
     return wordCount >= n;
   };
   
+  validator.isBetween = function(input, floor, ceil) {
+    if (!input) throw "error in function isBetween: 'input' parameter missing.";
+    if (!floor) throw "error in function isBetween: 'floor' parameter missing.";
+    if (!ceil) throw "error in function isBetween: 'ceil' parameter missing.";
+    
+    return input >= floor && input <= ceil;
+  };
+  
 })(window);
