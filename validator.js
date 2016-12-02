@@ -390,5 +390,29 @@
     return true;
   };
   
+  validator.isRGB = function(input) {
+    if (!input) throw "error in function isRGB: 'input' parameter missing.";
+    
+    var inputStr = ""+input;
+    
+    if (inputStr.indexOf("rgb(") !== 0 || inputStr[inputStr.length - 1] !== ")") return false;
+    
+    inputStr = inputStr.slice(4, inputStr.length - 1);
+   
+    var inputArr = inputStr.split(",");
+    
+    if (inputArr.length !== 3) return false;
+    
+    for (var i = 0; i < inputArr.length; i++) {
+      var value = inputArr[i].trim();
+      var numValue = +value;
+      
+      if (isNaN(numValue)) return false;  
+      if (numValue < 0 || numValue > 255) return false;
+    }
+    
+    return true;
+  };
+  
   
 })(window);
