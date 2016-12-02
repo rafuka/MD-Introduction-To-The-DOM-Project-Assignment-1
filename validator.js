@@ -414,5 +414,32 @@
     return true;
   };
   
+  validator.isHSL = function(input) {
+    if (!input) throw "error in function isHSL: 'input' parameter missing.";
+    
+    var inputStr = ""+input;
+
+    if (inputStr.indexOf("hsl(") !== 0 || inputStr[inputStr.length - 1] !== ")") return false;
+
+    inputStr = inputStr.slice(4, inputStr.length - 1);
+    
+    var inputArr = inputStr.split(",");
+    
+    if (inputArr.length !== 3) return false;
+
+    var numValues = [];
+    
+    for (var i = 0; i < inputArr.length; i++) {
+      inputArr[i] = inputArr[i].trim();
+      numValues[i] = +inputArr[i];
+      if (isNaN(numValues[i])) return false;  
+    }
+
+    if (numValues[0] < 0 || numValues[0] > 360) return false;
+    if (numValues[1] < 0 || numValues[1] > 1) return false;
+    if (numValues[2] < 0 || numValues[2] > 1) return false;
+    
+    return true;
+  };
   
 })(window);
