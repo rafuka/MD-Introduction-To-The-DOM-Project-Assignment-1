@@ -442,4 +442,26 @@
     return true;
   };
   
+  validator.isColor = function(input) {
+    if (!input) throw "error in function isColor: 'input' parameter missing.";
+    
+    return this.isHex(input) || this.isRGB(input) || this.isHSL(input);
+  };
+  
+  validator.isTrimmed = function(input) {
+    if (!input) throw "error in function isTrimmed: 'input' parameter missing.";
+    
+    var inputStr = ""+input;
+    
+    if (inputStr[0] === " " || inputStr[inputStr.length - 1] === " ") return false;
+    
+    for (var i = 0; i < inputStr.length; i++) {
+      if (inputStr[i] === " ") {
+        if (inputStr[i - 1] === " " || inputStr[i + 1] === " ") return false;
+      }
+    }
+    
+    return true;
+  };
+  
 })(window);
