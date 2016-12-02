@@ -336,4 +336,59 @@
     return input >= floor && input <= ceil;
   };
   
+  validator.isAlphaNumeric = function(input) {
+    if (input === "") return false;
+    if (!input) throw "error in function isAlphaNumeric: 'input' parameter missing.";
+  
+    var inputStr = ""+input;
+  
+    for (var i = 0; i < inputStr.length; i++) {
+      if ((inputStr[i] < "a" || inputStr[i] > "z") &&
+          (inputStr[i] < "A" || inputStr[i] > "Z") &&
+          (inputStr[i] < "0" || inputStr[i] > "9")) {
+        return false;
+      }
+    }
+  
+    return true;
+  };
+  
+  validator.isCreditCard = function(input) {
+    if (!input) throw "error in function isCreditCard: 'input' parameter missing.";
+    
+    var inputStr = ""+input;
+    
+    if (inputStr.length < 16) return false;
+    if (inputStr.length === 16) return this.isAlphaNumeric(inputStr);
+    
+    var inputArr = inputStr.split("-");
+    
+    if (inputArr.length !== 4) return false;
+    
+    for (var i = 0; i < inputArr.length; i++) {
+      if (inputArr[i].length !== 4 || !this.isAlphaNumeric(inputArr[i])) return false;
+    }
+    
+    return true;
+  };
+  
+  validator.isHex = function(input) {
+    if (!input) throw "error in function isHex: 'input' parameter missing.";
+    
+    var inputStr = ""+input;
+    
+    if (inputStr.length < 4 || inputStr.length > 7 || inputStr[0] !== "#") return false;
+    
+    for (var i = 1; i < inputStr.length; i++) {
+      if ((inputStr[i] < "0" || inputStr[i] > "9") && 
+          (inputStr[i] < "a" || inputStr[i] > "f") &&
+          (inputStr[i] < "A" || inputStr[i] > "F")) {
+        return false;
+      }
+    }
+    
+    return true;
+  };
+  
+  
 })(window);
