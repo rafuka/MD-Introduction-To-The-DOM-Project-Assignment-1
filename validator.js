@@ -1,4 +1,4 @@
-(function(window){
+ var validator = (function(window){
 
   var validator = {};
   
@@ -121,7 +121,7 @@
     input = (""+input).toLowerCase();
     
     function isDelimiter(char) {
-      if (char === " " || char === undefined) return true;
+      if (char === " " || char === undefined) return true;
       
       if ((char < "a" || char > "z") && 
           (char < "A" || char > "Z") && 
@@ -164,7 +164,7 @@
     input = (""+input).toLowerCase();
     
     function isDelimiter(char) {
-      if (char === " " || char === undefined) return true;
+      if (char === " " || char === undefined) return true;
       
       if ((char < "a" || char > "z") && 
           (char < "A" || char > "Z") && 
@@ -395,7 +395,7 @@
     
     var inputStr = ""+input;
     
-    if (inputStr.indexOf("rgb(") !== 0 || inputStr[inputStr.length - 1] !== ")") return false;
+    if (inputStr.indexOf("rgb(") !== 0 || inputStr[inputStr.length - 1] !== ")") return false;
     
     inputStr = inputStr.slice(4, inputStr.length - 1);
    
@@ -464,4 +464,5 @@
     return true;
   };
   
+  return validator;
 })(window);
