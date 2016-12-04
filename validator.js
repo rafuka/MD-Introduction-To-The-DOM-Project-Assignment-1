@@ -2,11 +2,24 @@
 
   var validator = {};
   
+  // Helper function
+  function isDelimiter(char) {
+    if (char === " " || char === undefined) return true;
+      
+    if ((char < "a" || char > "z") && 
+        (char < "A" || char > "Z") && 
+        isNaN(+char)) {
+      return true;
+    }
+
+    return false;
+  }
+
   validator.isEmailAddress = function(input) {
     if (!input) throw "error in function isEmailAddress: 'input' parameter missing";
     
     var strArray = input.split("@");
-    
+     
     if (strArray.length == 2 && strArray[0].length > 0 && strArray[1].length > 0) {
       return true; 
     }
@@ -119,18 +132,6 @@
     if (!words) throw "error in function contains: 'words' parameter missing";
 
     input = (""+input).toLowerCase();
-    
-    function isDelimiter(char) {
-      if (char === " " || char === undefined) return true;
-      
-      if ((char < "a" || char > "z") && 
-          (char < "A" || char > "Z") && 
-          isNaN(+char)) {
-        return true;
-      }
-
-      return false;
-    }
  
     var contains;
     
@@ -162,18 +163,6 @@
     if (!words) throw "error in function lacks: 'words' parameter missing";
 
     input = (""+input).toLowerCase();
-    
-    function isDelimiter(char) {
-      if (char === " " || char === undefined) return true;
-      
-      if ((char < "a" || char > "z") && 
-          (char < "A" || char > "Z") && 
-          isNaN(+char)) {
-        return true;
-      }
-
-      return false;
-    }
  
     var lacks;
     
@@ -292,17 +281,6 @@
     var strArr = (""+input).split("");
     var count = 0;
     
-    function isDelimiter(char) {
-      if (char === " " ||char === undefined) return true;
-      
-      if ((char < "a" || char > "z") && 
-          (char < "A" || char > "Z") && 
-          isNaN(+char)) {
-        return true;
-      }
-    }
-    
-    console.log(strArr);
     for (var i = 0; i < len + 1; i++) {
       if (isDelimiter(strArr[i - 1]) && !isDelimiter(strArr[i])) count++;
     } 
