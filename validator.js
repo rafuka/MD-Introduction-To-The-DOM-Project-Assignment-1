@@ -1,4 +1,4 @@
- var validator = (function(window){
+ var validator = (function(window) {
 
   var validator = {};
   
@@ -16,7 +16,7 @@
   }
 
   validator.isEmailAddress = function(input) {
-    if (!input) throw "error in function isEmailAddress: 'input' parameter missing";
+    if (input !== "" && !input) throw "error in function isEmailAddress: 'input' parameter missing";
     
     var strArray = input.split("@");
      
@@ -257,7 +257,7 @@
   };
   
   validator.isLength = function(input, n) {
-    if (!input) throw "error in function isLength: 'input' parameter missing.";
+    if (input !== "" && !input) throw "error in function isLength: 'input' parameter missing.";
     if (!n) throw "error in function isLength: 'n' parameter missing.";
     
     var result = ""+input.length;
@@ -265,7 +265,7 @@
   };
 
   validator.isOfLength = function(input, n) {
-    if (!input) throw "error in function isLength: 'input' parameter missing.";
+    if (input !== "" && !input) throw "error in function isLength: 'input' parameter missing.";
     if (!n) throw "error in function isLength: 'n' parameter missing.";
     
     var result = ""+input.length;
@@ -273,9 +273,7 @@
   };
 
   validator.countWords = function(input) {
-    if (input !== "" && !input) throw "error in function countWords: 'input' parameter missing.";
-
-    if (input === "" || input === undefined || input === null || input === NaN) return 0;
+    if (!input) return 0;
     
     var len = +(""+input).length;
     var strArr = (""+input).split("");
