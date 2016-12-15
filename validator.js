@@ -258,7 +258,7 @@
   
   validator.isLength = function(input, n) {
     if (input !== "" && !input) throw "error in function isLength: 'input' parameter missing.";
-    if (!n) throw "error in function isLength: 'n' parameter missing.";
+    if (n !== 0 && !n) throw "error in function isLength: 'n' parameter missing.";
     
     var result = ""+input.length;
     return result <= n;
@@ -329,20 +329,29 @@
     return true;
   };
   
+  validator.isNumber = function(input) {
+    if (input !== "" && !input) throw "error in Function isNumber: 'input' parameter missing."
+
+    var inputNum = +input;
+
+    if(!isNaN(inputNum)) return true;
+    else return false;
+  };
+
   validator.isCreditCard = function(input) {
     if (!input) throw "error in function isCreditCard: 'input' parameter missing.";
     
     var inputStr = ""+input;
     
     if (inputStr.length < 16) return false;
-    if (inputStr.length === 16) return this.isAlphaNumeric(inputStr);
+    if (inputStr.length === 16) return this.isNumber(inputStr);
     
     var inputArr = inputStr.split("-");
     
     if (inputArr.length !== 4) return false;
     
     for (var i = 0; i < inputArr.length; i++) {
-      if (inputArr[i].length !== 4 || !this.isAlphaNumeric(inputArr[i])) return false;
+      if (inputArr[i].length !== 4 || !(this.isNumber(inputArr[i]))) return false;
     }
     
     return true;
@@ -439,6 +448,8 @@
     
     return true;
   };
+
+  
   
   return validator;
 })(window);
